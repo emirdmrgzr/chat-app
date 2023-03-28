@@ -12,11 +12,13 @@ const MessagesComponent = () => {
         <div className="messages-global-list">
           <div className="messages-search-part">
             <form className='flex justify-center pt-4'>
-              <input type="text" placeholder='Search messages' className='w-4/5 rounded-xl h-12'/>
+              <input type="text" placeholder='Search messages' className='w-4/5 rounded-xl h-12 '/>
             </form>
           </div>
-          <div className='messages-list'></div>
-        </div>
+          <div className='messages-list'>
+              
+          </div>
+          </div>
       </div>
   )
 }

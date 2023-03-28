@@ -26,3 +26,7 @@ html, body {
 .chat-component{
 
 }
+
+input[type="text"]{
+  padding-left: 20px;
+}

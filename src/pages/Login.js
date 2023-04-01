@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { login } from '../firebase';
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +14,7 @@ const Login = () => {
   
   return (
     <div className="flex items-center justify-center h-screen">
+      <Toaster/>
     <div className='bg-gray-100 p-16 rounded-2xl shadow-lg'>
     <p className="mb-8 text-center font-medium text-3xl text-indigo-400 ">LOGIN</p>
     <form className="w-full max-w-sm" onSubmit={handleSubmit}>

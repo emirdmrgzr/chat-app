@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { PasswordCheck } from "iconsax-react";
-import { ToastContainer, toast } from "react-toastify";
+import toast from "react-hot-toast";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7BRwLNnQQX8OXHg--5HonuVsq7xBw2Qo",
@@ -30,7 +31,7 @@ export const register = async (email, password) =>{
         return user;
         }
         catch(e){
-            console.log(e.message);
+            toast.error(e.message);
         }
 }
 
@@ -39,7 +40,7 @@ export const login = async (email,password) =>{
      const {user} =  await signInWithEmailAndPassword(auth, email, password);
      return user;
     } catch(e){
-        console.log(e.message);
+        toast.error(e.message);
     }
 }
 
@@ -49,7 +50,7 @@ export const logout = async() =>{
         return true;
     }
     catch(e){
-        console.log(e.message);
+        toast.error(e.message);
     }
 }
 

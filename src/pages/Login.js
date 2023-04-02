@@ -1,17 +1,29 @@
 import { useState } from 'react';
 import { login } from '../firebase';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
+import { loginCheck, logout as logoutCheck } from '../store/auth';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
     const user = await login(email,password);
-    console.log(user);
+    dispatch(loginCheck(user));
+    navigate("/",{
+      replace: true
+    });
+   
   }
+
   
+
   return (
     <div className="flex items-center justify-center h-screen">
       <Toaster/>

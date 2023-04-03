@@ -1,15 +1,22 @@
 import { useState } from 'react';
 import { register } from '../firebase';
 import { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const handleSubmit = async (e) =>{
     e.preventDefault();
     const user = await register(email,password);
     console.log(user);
+    toast.success("Signed up Successfully")
+    navigate("/",{
+      replace: true
+    });
   }
   
   return (

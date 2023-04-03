@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-hot-toast";
 
 const storedUser = localStorage.getItem("user");
 
@@ -21,11 +22,13 @@ const initialState = {
     reducers: {
       loginCheck: (state, action) => {
         state.user = action.payload;
+        console.log(user);
         localStorage.setItem("user", JSON.stringify(action.payload));
       },
       logoutCheck: (state) => {
         state.user = null;
         localStorage.removeItem("user");
+        toast.success("You logged out successfully");
       },
     },
   });

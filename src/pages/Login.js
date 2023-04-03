@@ -1,25 +1,24 @@
 import { useState } from 'react';
 import { login } from '../firebase';
 import toast, { Toaster } from 'react-hot-toast';
-import { loginCheck, logout as logoutCheck } from '../store/auth';
-import { useDispatch } from 'react-redux';
+import { loginCheck, logoutCheck } from '../store/auth';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) =>{
     e.preventDefault();
     const user = await login(email,password);
-    dispatch(loginCheck(user));
-    navigate("/",{
-      replace: true
-    });
-   
+    if(user){
+      navigate("/",{
+        replace: true
+      });
+      toast.success("You logged in successfully")
+    }
   }
 
   

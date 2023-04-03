@@ -4,8 +4,7 @@ import MessagesComponent from "../components/MessagesComponent";
 
 const NormalPage = () => {
   return (
-    <div className='app-container'>
-      <LeftBarComponent/>
+    <div className='normal-page-container'>
       <MessagesComponent/>
       <ChatComponent/>
     </div>

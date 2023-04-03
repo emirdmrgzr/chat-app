@@ -24,7 +24,7 @@ const Login = () => {
   
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex w-full items-center justify-center h-screen">
       <Toaster/>
     <div className='bg-gray-100 p-16 rounded-2xl shadow-lg'>
     <p className="mb-8 text-center font-medium text-3xl text-indigo-400 ">LOGIN</p>

@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, updateEmail, GoogleAuthProvider} from "firebase/auth";
 import { PasswordCheck } from "iconsax-react";
 import toast from "react-hot-toast";
+import store from "./store";
+import { loginCheck, logoutCheck } from "./store/auth";
 
 
 const firebaseConfig = {
@@ -23,7 +25,8 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth();
+export const auth = getAuth();
+
 
 export const register = async (email, password) =>{
         try{
@@ -53,5 +56,31 @@ export const logout = async() =>{
         toast.error(e.message);
     }
 }
+
+export const updateUser = async (info) =>{
+    try {
+        await updateProfile(auth.currentUser,info)
+    }
+    catch(e){
+        toast.error(e.message);
+    }
+}
+
+export const changeEmail = async(info) =>{
+    try{
+        await updateEmail(auth.currentUser, info)
+    }
+    catch(e){
+        toast.error(e.message);
+    }
+}
+
+onAuthStateChanged(auth, (user) =>{
+    if(user){
+        store.dispatch(loginCheck(user));
+    }else{
+        store.dispatch(logoutCheck);
+    }
+})
 
 export default app;

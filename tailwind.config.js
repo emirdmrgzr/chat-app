@@ -4,6 +4,9 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    minWidth: {
+      '250': '250px',
+    },
     extend: {
       boxShadow: {
         "leftbar" : "0 0 24px 0 rgba(0, 0, 0, 0.1)",

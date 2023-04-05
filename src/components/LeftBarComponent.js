@@ -1,8 +1,13 @@
 import React from 'react';
 import { Message, Home2, SearchNormal1, Calendar2, Setting2, ProfileCircle} from 'iconsax-react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+// import { auth } from '../firebase';
+
+
 
 const LeftBarComponent = () => {
+  const { user } = useSelector(state => state.auth);
   return (
     <div className='sticky leftbar-component bg-gray-100 w-full h-full shadow-leftbar z-10'>
         <div className='leftbar-elements w-full h-98 flex flex-col items-center mt-3'>
@@ -13,7 +18,7 @@ const LeftBarComponent = () => {
           <Link to="/" ><Home2 className="cursor-pointer" size="32" color="black"/></Link>
           <Message className="mt-7 cursor-pointer" size="32" color="black"/>
           <Calendar2 className="mt-7 cursor-pointer" size="32" color="black"/>
-          <Link to="user-profile"><ProfileCircle className='mt-7' size="32" color="black"/></Link>
+          {user && <Link to="user-profile"><ProfileCircle className='mt-7' size="32" color="black"/></Link>}
           </div>
           <div className='leftbar-settings mt-auto mb-8'>
           <Setting2 className='cursor-pointer' size="32" color="black"/>

@@ -11,9 +11,9 @@ const LeftBarComponent = () => {
           </div>
           <div className='leftbar-importants mt-11'>
           <Link to="/" ><Home2 className="cursor-pointer" size="32" color="black"/></Link>
-          <Link to="user-profile"><ProfileCircle className='mt-7' size="32" color="black"/></Link>
           <Message className="mt-7 cursor-pointer" size="32" color="black"/>
           <Calendar2 className="mt-7 cursor-pointer" size="32" color="black"/>
+          <Link to="user-profile"><ProfileCircle className='mt-7' size="32" color="black"/></Link>
           </div>
           <div className='leftbar-settings mt-auto mb-8'>
           <Setting2 className='cursor-pointer' size="32" color="black"/>

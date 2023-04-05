@@ -9,8 +9,8 @@ import { loginCheck } from "../store/auth";
 
 export default function UserProfile(){
   const { user } = useSelector(state => state.auth);
-    const [displayName, setDisplayName] = useState(user.displayName);
-    const [email, setEmail] = useState(user.email); 
+  const [displayName, setDisplayName] = useState(user.displayName || "");
+  const [email, setEmail] = useState(user.email || ""); 
     const [photoUrl, setPhotoUrl] = useState("");
     const dispatch = useDispatch();
     
@@ -23,8 +23,10 @@ export default function UserProfile(){
       dispatch(loginCheck(auth.currentUser))
     }
 
-    if(user)return(
-  //     <div className="w-full h-full flex flex-col ">
+     return(
+      <>
+      {user ?(
+        //     <div className="w-full h-full flex flex-col ">
   //     <div className=" gap-x-6 gap-y-8 sm:grid-cols-6 w-full items-center">
   //          <div className="sm:col-span-3">
   //              <label className="block text-sm font-medium leading-6 text-gray-900">Name</label>
@@ -71,5 +73,9 @@ export default function UserProfile(){
     </div>
   </div>
 </form>
+      ) : (
+        <div>Bad Bro</div>
+      )}
+  </>
     )
 }

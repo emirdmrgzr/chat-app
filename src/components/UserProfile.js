@@ -2,24 +2,45 @@ import { useState, useEffect} from "react";
 import store from "../store";
 //import { currentUser } from "../store/auth";
 import { useSelector } from "react-redux";
-import { updateUser , changeEmail, auth} from "../firebase";
+import { updateUser , changeEmail, auth, db} from "../firebase";
 import { updateProfile } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { loginCheck } from "../store/auth";
+import toast from "react-hot-toast";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function UserProfile(){
   const { user } = useSelector(state => state.auth);
   const [displayName, setDisplayName] = useState(user.displayName || "");
   const [email, setEmail] = useState(user.email || ""); 
-    const [photoUrl, setPhotoUrl] = useState("");
-    const dispatch = useDispatch();
-    
+  // const [photoUrl, setPhotoUrl] = useState("");
+  const dispatch = useDispatch();
+
+  const getUser = async() =>{
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const storeData = docSnap.data();
+      setDisplayName(storeData.name);
+      setEmail(storeData.email);
+    } else {
+      console.log("No such document!");
+    }
+  }
+  
+  useEffect(() => {
+    getUser();
+  }, []);
+
     const handleSubmit = async(e) =>{
       e.preventDefault();
-      await updateUser({
-        displayName: displayName
-      })
-      await changeEmail(email)
+      await Promise.all([
+        updateUser({
+          displayName: displayName
+        }),
+        changeEmail(email),
+      ])
       dispatch(loginCheck({
         displayName: auth.currentUser.displayName,
         email: auth.currentUser.email,
@@ -27,19 +48,19 @@ export default function UserProfile(){
         photoUrl: auth.currentUser.photoUrl,
         uid: auth.currentUser.uid,
       }))
-      console.log(user);
+      toast.success("User information updated!")
     }
 
     useEffect(() => {
       setDisplayName(user.displayName || "");
       setEmail(user.email || "");
-      setPhotoUrl(user.photoUrl || "");
+      //setPhotoUrl(user.photoUrl || "");
     }, [user]);
 
      return(
       <>
       {user ?(
-        //     <div className="w-full h-full flex flex-col ">
+  //     <div className="w-full h-full flex flex-col ">
   //     <div className=" gap-x-6 gap-y-8 sm:grid-cols-6 w-full items-center">
   //          <div className="sm:col-span-3">
   //              <label className="block text-sm font-medium leading-6 text-gray-900">Name</label>

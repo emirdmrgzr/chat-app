@@ -4,7 +4,8 @@ import { PasswordCheck } from "iconsax-react";
 import toast from "react-hot-toast";
 import store from "./store";
 import { loginCheck, logoutCheck } from "./store/auth";
-
+import { getFirestore , collection, addDoc, doc, setDoc} from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD7BRwLNnQQX8OXHg--5HonuVsq7xBw2Qo",
@@ -26,13 +27,14 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
-
+export const db = getFirestore();
+export const storage = getStorage();
 
 export const register = async (email, password) =>{
         try{
         const {user} =  await createUserWithEmailAndPassword(auth, email, password);
         return user;
-        }
+    }
         catch(e){
             toast.error(e.message);
         }
@@ -77,7 +79,12 @@ export const changeEmail = async(info) =>{
 
 onAuthStateChanged(auth, (user) =>{
     if(user){
-        store.dispatch(loginCheck(user));
+        store.dispatch(loginCheck({
+            displayName : user.displayName,
+            email: user.email,
+            photoURL : user.photoURL,
+            uid: user.uid,
+        }));
     }else{
         store.dispatch(logoutCheck);
     }
